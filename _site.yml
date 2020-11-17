@@ -12,3 +12,7 @@ navbar-inverse:
       href: https://github.com/USCbiostats/PM566
     - text: "PM566 Home"
       href: https://elastic-khorana-70231e.netlify.app/
+
+output: 
+  html_document:
+    theme: cosmo
