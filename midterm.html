@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Weijia Hu" />
+
+
+<title>PM566 Final Project</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PM566 Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/USCbiostats/PM566">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://elastic-khorana-70231e.netlify.app/">PM566 Home</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">PM566 Final Project</h1>
+<h4 class="author">Weijia Hu</h4>
+
+</div>
+
+
+<pre><code>## -- Attaching packages ------------------------------------------------------------------------ tidyverse 1.3.0 --</code></pre>
+<pre><code>## √ ggplot2 3.3.2     √ purrr   0.3.4
+## √ tibble  3.0.3     √ dplyr   1.0.2
+## √ tidyr   1.1.1     √ stringr 1.4.0
+## √ readr   1.3.1     √ forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::between()   masks data.table::between()
+## x dplyr::filter()    masks stats::filter()
+## x dplyr::first()     masks data.table::first()
+## x dplyr::lag()       masks stats::lag()
+## x dplyr::last()      masks data.table::last()
+## x purrr::transpose() masks data.table::transpose()</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In my project, I’m interested in the new cases and deaths of Covid-19. The new cases indicate how fast the virus spread and the deaths indicate how serious this disease is.</p>
+<div id="the-formulated-questions-are" class="section level3">
+<h3>The formulated questions are:</h3>
+<ol style="list-style-type: decimal">
+<li><p>Until 10/06/2020, which states contribute most to the new cases and deaths?</p></li>
+<li><p>Is there any association between the number of hospitalized patients and the number of deaths for COvid-19?</p></li>
+<li><p>After the National day holiday, did the number of daily new cases increase?</p></li>
+</ol>
+</div>
+</div>
+<div id="method" class="section level1">
+<h1>Method</h1>
+<div id="read-in-the-data" class="section level3">
+<h3>Read in the data:</h3>
+<p>My data are from the website of The COVID Tracking Project and about COVID-19 related data from all the states in USA. The investigators of this project would update the data each day. The date in my data set ranges from 01/22/2020 to 10/06/2020. The following codes are used to read in the data.</p>
+<ul>
+<li><p>There are 12138 rows and 43 columns in the raw data set.</p></li>
+<li><p>The investigators assigned every state a data-quality grade based on their evaluation of the completeness of states’ reporting, I removed rows whose data-quality grades are D, which I think the data are not reliable. I stored these data in the data set named “cov_d”. There are 400 observations in “cov_d” data set. Let’s check states in this data set in recent days, in which the public health systems of Covid-19 are considered good enough. The states are American Samoa, Northern Mariana Islands and US Virgin Islands and they are not in the mainland USA.</p></li>
+<li><p>After removing some observations, there are 11738 observations left.</p></li>
+<li><p>In order to get the total cases and deaths in each state, observations whose date equal to 2020-10-06 were selected and stored in cov_1006.</p></li>
+</ul>
+</div>
+<div id="take-a-look-at-the-data" class="section level3">
+<h3>Take a look at the data:</h3>
+<p>Use summary function to obtain important statistics.</p>
+<pre><code>##       date               state               death       deathIncrease    
+##  Min.   :2020-01-22   Length:11738       Min.   :    0   Min.   :-213.00  
+##  1st Qu.:2020-04-25   Class :character   1st Qu.:   74   1st Qu.:   0.00  
+##  Median :2020-06-20   Mode  :character   Median :  500   Median :   4.00  
+##  Mean   :2020-06-19                      Mean   : 2075   Mean   :  17.23  
+##  3rd Qu.:2020-08-14                      3rd Qu.: 2054   3rd Qu.:  15.00  
+##  Max.   :2020-10-06                      Max.   :25536   Max.   : 951.00  
+##                                          NA&#39;s   :749</code></pre>
+<pre><code>##       date               state              positive      positiveIncrease 
+##  Min.   :2020-01-22   Length:11738       Min.   :     0   Min.   :-7757.0  
+##  1st Qu.:2020-04-25   Class :character   1st Qu.:  1936   1st Qu.:   36.0  
+##  Median :2020-06-20   Mode  :character   Median : 15326   Median :  244.0  
+##  Mean   :2020-06-19                      Mean   : 55734   Mean   :  633.5  
+##  3rd Qu.:2020-08-14                      3rd Qu.: 62194   3rd Qu.:  711.0  
+##  Max.   :2020-10-06                      Max.   :828461   Max.   :17820.0  
+##                                          NA&#39;s   :99</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">date</th>
+<th align="left">state</th>
+<th align="left">death</th>
+<th align="left">deathIncrease</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Min. :2020-01-22</td>
+<td align="left">Length:11738</td>
+<td align="left">Min. : 0</td>
+<td align="left">Min. :-213.00</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">1st Qu.:2020-04-25</td>
+<td align="left">Class :character</td>
+<td align="left">1st Qu.: 74</td>
+<td align="left">1st Qu.: 0.00</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Median :2020-06-20</td>
+<td align="left">Mode :character</td>
+<td align="left">Median : 500</td>
+<td align="left">Median : 4.00</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mean :2020-06-19</td>
+<td align="left">NA</td>
+<td align="left">Mean : 2075</td>
+<td align="left">Mean : 17.23</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">3rd Qu.:2020-08-14</td>
+<td align="left">NA</td>
+<td align="left">3rd Qu.: 2054</td>
+<td align="left">3rd Qu.: 15.00</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Max. :2020-10-06</td>
+<td align="left">NA</td>
+<td align="left">Max. :25536</td>
+<td align="left">Max. : 951.00</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA’s :749</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">date</th>
+<th align="left">state</th>
+<th align="left">positive</th>
+<th align="left">positiveIncrease</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Min. :2020-01-22</td>
+<td align="left">Length:11738</td>
+<td align="left">Min. : 0</td>
+<td align="left">Min. :-7757.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">1st Qu.:2020-04-25</td>
+<td align="left">Class :character</td>
+<td align="left">1st Qu.: 1936</td>
+<td align="left">1st Qu.: 36.0</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Median :2020-06-20</td>
+<td align="left">Mode :character</td>
+<td align="left">Median : 15326</td>
+<td align="left">Median : 244.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mean :2020-06-19</td>
+<td align="left">NA</td>
+<td align="left">Mean : 55734</td>
+<td align="left">Mean : 633.5</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">3rd Qu.:2020-08-14</td>
+<td align="left">NA</td>
+<td align="left">3rd Qu.: 62194</td>
+<td align="left">3rd Qu.: 711.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Max. :2020-10-06</td>
+<td align="left">NA</td>
+<td align="left">Max. :828461</td>
+<td align="left">Max. :17820.0</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA’s :99</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>The date variable started at 01/22/2020. The first case in USA was found on 01/21/2020. So, our data made sense.</p></li>
+<li><p>Death, deathincrese, positive and positiveincrease ought to be positive numbers. However, the mininmum of deathincrease and positiveincrease are -213 and -7757, repectively. It didn’t make sense. We need to remove these incorrect values.</p></li>
+</ul>
+</div>
+<div id="remove-incorrect-values." class="section level3">
+<h3>Remove incorrect values.</h3>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##    0.00    0.00    4.00   17.34   15.00  951.00      42</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##     0.0    37.0   246.0   635.2   712.0 17820.0      18</code></pre>
+<ul>
+<li>Now, all the values are positive, which makes sense.</li>
+</ul>
+</div>
+<div id="graphs-of-new-cases-and-deaths-in-the-usa" class="section level3">
+<h3>Graphs of new cases and deaths in the USA</h3>
+<p>1.Total death number by states by 10/06/2020 1.1 The bar charts I used ggplot2 package to draw two bar chart. One of them includes all states in the USA and another one includes states number of death is greater than 5000. <img src="midterm_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="midterm_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<ul>
+<li><p>First, take a look at the first bar chart. There are several states being in really terrible conditions.</p></li>
+<li><p>I picked states whose number of death is greater than 5000. Then sort them by their death descendingly. Among them, the New York has the highest total deaths number in the USA. The state of California, New Jersey and Texas have the similar numbers and are ranked second, third and fourth respectively.</p></li>
+</ul>
+<p>1.2 The Map I used usmap package to draw a map. The darker its color is, the higher its number of deaths is. <img src="midterm_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Total case number by states 2.1 The bar charts Similarly, two bar charts are shown. <img src="midterm_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="midterm_files/figure-html/unnamed-chunk-7-2.png" width="672" /></li>
+</ol>
+<ul>
+<li><p>Take a look at the first bar chart. There are several states being in really terrible conditions.</p></li>
+<li><p>I picked states whose number of cases is greater than 20,000. Then sort them by their number of cases descendingly. Among them, the California state has the highest Covid-19-related cases, which is what we all know. Interestingly, the state of New York is only ranked forth, while it has the most deaths.</p></li>
+</ul>
+<p>2.2 The Map Also, use usmap package to get a map and observe it more directly. <img src="midterm_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Daily death by states Use 5 states with the highest number of deaths to analyze their daily death trends.</li>
+</ol>
+<pre><code>## Warning in cov$state == c(&quot;NY&quot;, &quot;CA&quot;, &quot;NJ&quot;, &quot;TX&quot;, &quot;FL&quot;): 长的对象长度不是短的对
+## 象长度的整倍数</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="midterm_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<ul>
+<li>We have 5 states here and they are California, New York, New Jersey, Texas and Florida. Only two of them have the decreasing smooth lines. But the cases in other three states increase slowly. Also their real lines went down recently, which is a good news.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Daily cases by states Use 5 states with the highest number of cases to analyze their daily death trends.</li>
+</ol>
+<pre><code>## Warning in cov$state == c(&quot;CA&quot;, &quot;TX&quot;, &quot;FL&quot;, &quot;NY&quot;, &quot;GA&quot;, &quot;IL&quot;): 长的对象长度不是
+## 短的对象长度的整倍数</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="midterm_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<ul>
+<li>Here, top six states were selected. They are California, Texas, Florida, New York, Georgia, and Illinois. The main trend of each state is downward. In California, Florida, Georgia and Texas, there are peaks in July and August. After the summer time, they went down.</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>The relationship between the number of hospitalized patients and the number of deaths for COvid-19.</li>
+</ol>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 17 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 17 rows containing missing values (geom_point).</code></pre>
+<p><img src="midterm_files/figure-html/unnamed-chunk-11-1.png" width="672" /> - According to this scatter plot and its smooth line, the number of deaths and the number of hopitalization have a positive relation. Notice that the confidence intervals are getting lareger. It’s because only some states have very high number of deaths.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>The relationship between the National Day holiday and the number of new cases for COvid-19.</li>
+</ol>
+<pre><code>## Warning in cov_2week$state == c(&quot;CA&quot;, &quot;TX&quot;, &quot;FL&quot;, &quot;NY&quot;, &quot;GA&quot;, &quot;IL&quot;): 长的对象长
+## 度不是短的对象长度的整倍数</code></pre>
+<p><img src="midterm_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<ul>
+<li>I selected a week before and after the National Day to analyze this question. Only in Georgia, after the National Day holiday, the daily increase cases become more. So, I don’t think there is any strong relationship between them.</li>
+</ul>
+</div>
+</div>
+<div id="premilinary-results" class="section level1">
+<h1>Premilinary results</h1>
+<p>Now let’s calculate summary statistics</p>
+<pre><code>##       date               state               death       deathIncrease   
+##  Min.   :2020-01-22   Length:11738       Min.   :    0   Min.   :  0.00  
+##  1st Qu.:2020-04-25   Class :character   1st Qu.:   74   1st Qu.:  0.00  
+##  Median :2020-06-20   Mode  :character   Median :  500   Median :  4.00  
+##  Mean   :2020-06-19                      Mean   : 2075   Mean   : 17.34  
+##  3rd Qu.:2020-08-14                      3rd Qu.: 2054   3rd Qu.: 15.00  
+##  Max.   :2020-10-06                      Max.   :25536   Max.   :951.00  
+##                                          NA&#39;s   :749     NA&#39;s   :42      
+##     positive      positiveIncrease 
+##  Min.   :     0   Min.   :    0.0  
+##  1st Qu.:  1936   1st Qu.:   37.0  
+##  Median : 15326   Median :  246.0  
+##  Mean   : 55734   Mean   :  635.2  
+##  3rd Qu.: 62194   3rd Qu.:  712.0  
+##  Max.   :828461   Max.   :17820.0  
+##  NA&#39;s   :99       NA&#39;s   :18</code></pre>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="19%" />
+<col width="17%" />
+<col width="14%" />
+<col width="15%" />
+<col width="15%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">date</th>
+<th align="left">state</th>
+<th align="left">death</th>
+<th align="left">deathIncrease</th>
+<th align="left">positive</th>
+<th align="left">positiveIncrease</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Min. :2020-01-22</td>
+<td align="left">Length:11738</td>
+<td align="left">Min. : 0</td>
+<td align="left">Min. : 0.00</td>
+<td align="left">Min. : 0</td>
+<td align="left">Min. : 0.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">1st Qu.:2020-04-25</td>
+<td align="left">Class :character</td>
+<td align="left">1st Qu.: 74</td>
+<td align="left">1st Qu.: 0.00</td>
+<td align="left">1st Qu.: 1936</td>
+<td align="left">1st Qu.: 37.0</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Median :2020-06-20</td>
+<td align="left">Mode :character</td>
+<td align="left">Median : 500</td>
+<td align="left">Median : 4.00</td>
+<td align="left">Median : 15326</td>
+<td align="left">Median : 246.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mean :2020-06-19</td>
+<td align="left">NA</td>
+<td align="left">Mean : 2075</td>
+<td align="left">Mean : 17.34</td>
+<td align="left">Mean : 55734</td>
+<td align="left">Mean : 635.2</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">3rd Qu.:2020-08-14</td>
+<td align="left">NA</td>
+<td align="left">3rd Qu.: 2054</td>
+<td align="left">3rd Qu.: 15.00</td>
+<td align="left">3rd Qu.: 62194</td>
+<td align="left">3rd Qu.: 712.0</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Max. :2020-10-06</td>
+<td align="left">NA</td>
+<td align="left">Max. :25536</td>
+<td align="left">Max. :951.00</td>
+<td align="left">Max. :828461</td>
+<td align="left">Max. :17820.0</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA’s :749</td>
+<td align="left">NA’s :42</td>
+<td align="left">NA’s :99</td>
+<td align="left">NA’s :18</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The maximum of the daily increase cases is 17820 in a certain state. The mean of th increase for every single state is 879 cases per day. The maximum of the daily increase deaths is 951 in a certain state. The mean of th increase for every single state is 24.83 deaths per day. Based on this, the Covid-19 disease could spread fast but not cause so many deaths (but we still need to wear masks and keep social distance to prevent it!).</li>
+</ul>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Until 10/06/2020, the New York state has the highest number of deaths and the California state has the highest number of cases. And there is a positive association between the number of hospitalized patients and the number of deaths for COvid-19. In my analysis, there is no obvious evidence to show the National Day holiday causes increase in the daily new cases.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
