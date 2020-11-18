@@ -7,8 +7,10 @@ navbar-inverse:
       href: index.html
     - text: "More Info"
       href: more.html
-      - text: "README"
+    - text: "README"
       href: README.md
+    - text: "Data"
+      href: https://covidtracking.com/
     - text: "Report"
       href: https://weijia-h.github.io/Final-Project/
   right:
