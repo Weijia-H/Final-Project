@@ -1,0 +1,88 @@
+---
+title: "More info"
+author: "Weijia Hu"
+output: 
+    html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+```{r echo=FALSE, message =FALSE, warning=FALSE}
+library(data.table)
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(plotly)
+library(DT)
+library(usmap)
+```
+
+```{r, echo=FALSE}
+cov = data.table::fread("E:/566/midterm/all-states-history.csv")
+cov_d = cov[cov$dataQualityGrade=='D']
+cov= cov[cov$dataQualityGrade!="D", ]
+cov_1006<- cov[date=='2020-10-06']
+```
+
+```{r echo=FALSE}
+cov$deathIncrease[cov$deathIncrease<0] <- NA
+cov$positiveIncrease[cov$positiveIncrease<0] <- NA
+```
+
+###  The bar charts
+
+<br>
+
+
+1.Total death number by states by 10/06/2020. 
+
+<br>
+
+- First, take a look at the first bar chart. There are several states being in really terrible conditions. 
+
+- I picked states whose number of death is greater than 5000. Then sort them by their death descendingly. Among them, the New York has the highest total deaths number in the USA. The state of California, New Jersey and Texas have the similar numbers and are ranked second, third and fourth respectively.
+
+```{r echo=FALSE}
+cov_1006 %>%
+  filter(!(death %in% NA)) %>%
+  ggplot(aes(x= state, y=death, fill= state))+
+  geom_bar(stat='identity')
+cov_1006_1 <- cov_1006 [death>5000]
+cov_1006_1$state <-reorder(cov_1006_1$state, -cov_1006_1$death)
+cov_1006_1 %>%
+ggplot(aes(x= state, y=death, fill= state))+
+  geom_bar(stat='identity')+
+  geom_text(aes(label = death , vjust = -0.8, hjust = 0.5, color = state)) 
+```
+
+2. Total case number by states by 10/06/2020. 
+
+<br>
+
+- Take a look at the first bar chart. There are several states being in really terrible conditions. 
+
+- I picked states whose number of cases is greater than 20,000. Then sort them by their number of cases descendingly. Among them, the California state has the highest Covid-19-related cases, which is what we all know. Interestingly, the state of New York is only ranked forth, while it has the most deaths.
+
+```{r echo=FALSE}
+cov_1006 %>%
+  filter(!(death %in% NA)) %>%
+  ggplot(aes(x= state, y=positive, fill= state))+
+  geom_bar(stat='identity')
+  cov_1006_2 <- cov_1006 [positive>200000]
+  cov_1006_2$state <-reorder(cov_1006_2$state, -cov_1006_2$positive)
+  cov_1006_2 %>%
+ggplot(aes(x= state, y=positive, fill= state))+
+  geom_bar(stat='identity')+
+  geom_text(aes(label = positive , vjust = -0.8, hjust = 0.5, color = state))
+```
+
+### Hospitalization and death
+
+```{r echo=FALSE, message =FALSE, warning=FALSE}
+ho<- cov_1006 %>%
+  filter(!(state %in% NA)) %>%
+  ggplot(mapping = aes(x= hospitalized, y=death))+
+  geom_point(shape=19)+
+  stat_smooth(method = 'lm')
+ggplotly(ho)
+```

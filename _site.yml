@@ -5,6 +5,8 @@ navbar-inverse:
   left:
     - text: "Home"
       href: index.html
+    - text: "More Info"
+      href: more.html
     - text: "Report"
       href: https://weijia-h.github.io/Final-Project/
   right:
