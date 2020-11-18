@@ -136,8 +136,10 @@ ggplot(aes(x= state, y=positive, fill= state))+
 ```{r echo=FALSE}
 cov_1006_d = as.data.frame(cov_1006)
 plot_usmap('states', data =cov_1006, values ='death')+
-scale_fill_continuous(low = "pink", high = "darkred", guide = F)+
-labs(title = "Total number of deaths related to Covid-19 in the USA")
+scale_fill_continuous(low = "pink", high = "darkred", name = "Total number of new cases", label = scales::comma)+
+labs(title = "Total number of deaths related to Covid-19 in the USA", subtitle = "By 10/06/2020")+
+  theme(legend.position = "right")
+
 ```
 <br>
 
@@ -148,8 +150,9 @@ labs(title = "Total number of deaths related to Covid-19 in the USA")
 ```{r echo=FALSE}
 cov_1006_d = as.data.frame(cov_1006)
 plot_usmap('states', data =cov_1006, values ='positive')+
-scale_fill_continuous(low = "lightsteelblue", high = "blueviolet", guide = F)+
-labs(title = "Total number of cases related to Covid-19 in the USA")
+scale_fill_continuous(low = "lightsteelblue", high = "blueviolet",name = "Total number of new cases", label = scales::comma)+
+labs(title = "Total number of cases related to Covid-19 in the USA", subtitle = "By 10/06/2020")+
+theme(legend.position = "right")
 ```
 
 <br>

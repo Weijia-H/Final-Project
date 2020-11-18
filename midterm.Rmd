@@ -58,9 +58,7 @@ kable(summary(new_death))
 kable(summary(new_case))
 ```
 
-- The date variable started at 01/22/2020. The first case in USA was found on 01/21/2020. So, our data made sense. 
 
-- Death, deathincrese, positive and positiveincrease ought to be positive numbers. However, the mininmum of deathincrease and positiveincrease are -213 and -7757, repectively. It didn't make sense. We need to remove these incorrect values. 
 
 ### Remove incorrect values.
 ```{r echo=FALSE}
