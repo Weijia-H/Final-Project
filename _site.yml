@@ -12,7 +12,7 @@ navbar-inverse:
     - text: "Data"
       href: https://covidtracking.com/
     - text: "Report"
-      href: https://weijia-h.github.io/Final-Project/
+      href: Final Project Report.pdf
   right:
     - icon: fa-github fa-lg
       href: https://github.com/USCbiostats/PM566

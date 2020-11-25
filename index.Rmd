@@ -1,5 +1,5 @@
 ---
-title: "PM566 Final Project"
+title: "PM566 Final Project: Covid-19 research"
 author: "Weijia Hu"
 output: 
     html_document:
@@ -22,7 +22,7 @@ In my project, I’m interested in the new cases and deaths of Covid-19. The new
 
 1. Until 10/06/2020, which states contribute most to the new cases and deaths?
 
-2. Is there any association between the number of hospitalized patients and the number of deaths for COvid-19?
+2. Is there any association between the number of hospitalized patients and the number of deaths for Covid-19?
 
 3. After the National day holiday, did the number of daily new cases increase? 
 
@@ -38,17 +38,7 @@ In my project, I’m interested in the new cases and deaths of Covid-19. The new
 
 ### Summary of the data
 
-My data are from the website of The COVID Tracking Project and about COVID-19 related data from all the states in USA. The investigators of this project would update the data each day. The date in my data set ranges from 01/22/2020 to 10/06/2020.
-
-- There are 12138 rows and 43 columns in the raw data set. 
-
-- The investigators assigned every state a data-quality grade based on their evaluation of the completeness of states' reporting, I removed rows whose data-quality grades are D, which I think the data are not reliable. I stored these data in the data set named "cov_d". There are 400 observations in "cov_d" data set. Let's check states in this data set in recent days, in which the public health systems of Covid-19 are considered good enough. The states are American Samoa, Northern Mariana Islands and US Virgin Islands and they are not in the mainland USA.
-
-- After removing some observations, there are 11738 observations left.
-
-<br>
-
-Take a look at the data:
+Descriptive statistics would be displayed in the "More Info" tab.
 
 ```{r, echo=FALSE}
 cov = data.table::fread("E:/566/midterm/all-states-history.csv")
@@ -62,14 +52,7 @@ new_death <- cov[ ,c(1,2,4,6)]
 re1<-summary(new_death)
 new_case <- cov[ ,c(1,2,22,24)]
 re2<-summary(new_case)
-kable(re1)
-kable(re2)
 ```
-
-
-- The date variable started at 01/22/2020. The first case in USA was found on 01/21/2020. So, our data made sense. 
-
-- Death, deathincrese, positive and positiveincrease ought to be positive numbers. However, the mininmum of deathincrease and positiveincrease are -213 and -7757, repectively. It didn't make sense. We need to remove these incorrect values. 
 
 ```{r echo=FALSE}
 cov$deathIncrease[cov$deathIncrease<0] <- NA
@@ -118,7 +101,7 @@ ggplot(aes(x= state, y=positive, fill= state))+
 <br>
 
 1.Total death number by states by 10/06/2020. 
-```{r echo=FALSE}
+```{r echo=FALSE,warning=FALSE}
 cov_1006_d = as.data.frame(cov_1006)
 g1<-plot_usmap('states', data =cov_1006, values ='death')+
 scale_fill_continuous(low = "pink", high = "darkred", name = "Total number of new cases", label = scales::comma)+
@@ -129,7 +112,7 @@ ggplotly(g1)
 <br>
 
 2. Total case number by states by 10/06/2020.
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 cov_1006_d = as.data.frame(cov_1006)
 g2<-plot_usmap('states', data =cov_1006, values ='positive')+
 scale_fill_continuous(low = "lightsteelblue", high = "blueviolet",name = "Total number of new cases", label = scales::comma)+

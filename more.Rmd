@@ -45,14 +45,14 @@ cov$positiveIncrease[cov$positiveIncrease<0] <- NA
 ```{r echo=FALSE}
 cov_1006 %>%
   filter(!(death %in% NA)) %>%
-  ggplot(aes(x= state, y=death, fill= state))+
-  geom_bar(stat='identity')
+  plot_ly (x=~state, y=~ death)
+ 
 cov_1006_1 <- cov_1006 [death>5000]
 cov_1006_1$state <-reorder(cov_1006_1$state, -cov_1006_1$death)
 cov_1006_1 %>%
 ggplot(aes(x= state, y=death, fill= state))+
   geom_bar(stat='identity')+
-  geom_text(aes(label = death , vjust = -0.8, hjust = 0.5, color = state)) 
+  geom_text(aes(label = death , vjust = -0.8, hjust = 0.5, color = state))
 ```
 
 2. Total case number by states by 10/06/2020. 
@@ -65,9 +65,8 @@ ggplot(aes(x= state, y=death, fill= state))+
 
 ```{r echo=FALSE}
 cov_1006 %>%
-  filter(!(death %in% NA)) %>%
-  ggplot(aes(x= state, y=positive, fill= state))+
-  geom_bar(stat='identity')
+  filter(!(positive %in% NA)) %>%
+  plot_ly (x=~state, y=~ positive)
   cov_1006_2 <- cov_1006 [positive>200000]
   cov_1006_2$state <-reorder(cov_1006_2$state, -cov_1006_2$positive)
   cov_1006_2 %>%
